@@ -3,9 +3,28 @@
 </head>
 
 <canvas id="canvas"></canvas>
+<br />
 
 <script src="Map.js"></script>
 <script src="Puyo.js"></script>
 <script src="Me.js"></script>
 <script src="Draw.js"></script>
 <script src="Main.js"></script>
+
+<body>
+	<div style="width: 600px; text-align: center;">
+		<input class="button" type="button" value="<<" onclick="Me.move(-1);" />
+		<input class="button" type="button" value=">>" onclick="Me.move(1);" />
+		<br />
+		<input class="button" type="button" value="落下" onclick="Me.fall(); fall();" />
+		<input class="button" type="button" value="回転" onclick="Me.rotate();" />
+	</div>
+</body>
+
+<style>
+	.button {
+		font-size: 30px;
+		padding: 10px;
+		margin: 20px;
+	}
+</style>
