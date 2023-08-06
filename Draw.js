@@ -10,6 +10,9 @@ class Draw {
 	static chain = 0;
 	static isErase = false;
 
+	/**アニメーション用 */
+	static mainPuyoBorderFlg = true;
+
 	static exec(ctx){
 		
 		this.field(ctx);
@@ -89,7 +92,7 @@ class Draw {
 
 		// メインぷよ
 		ctx.fillStyle = Puyo.types[Me.type[0]];
-		ctx.strokeStyle = "white";
+		ctx.strokeStyle = this.mainPuyoBorderFlg ? "white" : "gray";
 		ctx.beginPath();
 		ctx.rect(
 			this.startPosX + Me.posX * this.size
@@ -107,7 +110,7 @@ class Draw {
 		if (this.isErase){
 			ctx.font = this.size +"px 'メイリオ'";
 			ctx.fillStyle = "red";
-			ctx.fillText(this.chain +"連鎖 !!", this.startPosX + this.size, (Map.map.length / 2 + 1) * this.size);
+			ctx.fillText(this.chain +"れんさ！", this.startPosX + this.size, (Map.map.length / 2 + 1) * this.size);
 		}
 	}
 

@@ -13,6 +13,9 @@ Me.initialize();
 setInterval(() => {
 	Draw.exec(context);
 }, 5);
+setInterval(() => {
+	Draw.mainPuyoBorderFlg = ! Draw.mainPuyoBorderFlg;
+}, 100);
 
 /**
  * 落下処理
