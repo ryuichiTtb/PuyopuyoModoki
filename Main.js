@@ -48,8 +48,8 @@ let fallAllInterval;
 const fallAllIntervalDelay = 100;
 const fallAll =()=> {
 	let complete = true;
-	for (let y = Map.map.length - 1; y > 0; y --){
-		for (let x = 0; x < Map.map[y].length; x ++){
+	for (let y = Map.sizeH - 1; y > 0; y --){
+		for (let x = 0; x < Map.sizeW; x ++){
 			if (Map.map[y][x] != Map.empty){
 				continue;
 			}
@@ -71,8 +71,8 @@ const fallAll =()=> {
  */
 function erase(){
 	let doErase = false;
-	for (let y = 0; y < Map.map.length; y ++){
-		for (let x = 0; x < Map.map[y].length; x ++){
+	for (let y = 0; y < Map.sizeH; y ++){
+		for (let x = 0; x < Map.sizeW; x ++){
 			if (Map.map[y][x] == Map.empty){
 				continue;
 			}

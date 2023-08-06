@@ -1,16 +1,12 @@
 class Map {
-	static map = [
-		[-1, -1, -1, -1, -1, -1, -1, -1],
-		[-1, -1, -1, -1, -1, -1, -1, -1],
-		[-1, -1, -1, -1, -1, -1, -1, -1],
-		[-1, -1, -1, -1, -1, -1, -1, -1],
-		[-1, -1, -1, -1, -1, -1, -1, -1],
-		[-1, -1, -1, -1, -1, -1, -1, -1],
-		[-1, -1, -1, -1, -1, -1, -1, -1],
-		[-1, -1, -1, -1, -1, -1, -1, -1],
-		[-1, -1, -1, -1, -1, -1, -1, -1],
-		[-1, -1, -1, -1, -1, -1, -1, -1]
-	]
+	
+	static map;
+
+	/** マップ幅 */
+	static sizeW = 8;
+	/** マップ高さ */
+	static sizeH = 10;
+
 	/** 空間 */
 	static empty = -1;
 	/** NGエリア */
@@ -22,6 +18,18 @@ class Map {
 	 * 初期化
 	 */
 	static initialize (){
+		
+		this.map = new Array(this.sizeH);
+
+		for (let y = 0; y < this.sizeH; y ++){
+
+			this.map[y] = new Array(this.sizeW);
+
+			for (let x = 0; x < this.sizeW; x ++){
+
+				this.map[y][x] = this.empty;
+			}
+		}
 		const pos = this.getNgArea();
 		this.map[pos.posY][pos.posX] = this.ng;
 	}
@@ -31,7 +39,7 @@ class Map {
 	 * @returns
 	 */
 	static getNgArea(){
-		return {"posX": this.map[0].length / 2, "posY": 0};
+		return {"posX": this.sizeW / 2, "posY": 0};
 	}
 	
 	/**
@@ -40,8 +48,8 @@ class Map {
 	 * @param {*} posY 
 	 */
 	static getConnection (posX, posY) {
-		if (posX < 0 || this.map[0].length - 1 < posX
-			|| posY < 0 || this.map.length - 1 < posY
+		if (posX < 0 || this.sizeW - 1 < posX
+			|| posY < 0 || this.sizeH - 1 < posY
 		){
 			return null;
 		}
@@ -57,8 +65,8 @@ class Map {
 		this.traceDown(type, posX, posY, res);
 		this.traceLeft(type, posX, posY, res);
 
-		for (let y = Map.map.length - 1; y > 0; y --){
-			for (let x = 0; x < Map.map[y].length; x ++){
+		for (let y = this.sizeH - 1; y > 0; y --){
+			for (let x = 0; x < this.sizeW; x ++){
 				if (this.map[y][x] == this.work){
 					this.map[y][x] = type;
 				}
@@ -83,7 +91,7 @@ class Map {
 	}
 	static traceRight(type, x, y, res){
 		x ++;
-		if (this.map[0].length - 1 < x){
+		if (this.sizeW - 1 < x){
 			return;
 		}
 		if (this.map[y][x] == type){
@@ -96,7 +104,7 @@ class Map {
 	}
 	static traceDown(type, x, y, res){
 		y ++;
-		if (this.map.length - 1 < y){
+		if (this.sizeH - 1 < y){
 			return;
 		}
 		if (this.map[y][x] == type){

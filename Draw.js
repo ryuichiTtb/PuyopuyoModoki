@@ -27,8 +27,8 @@ class Draw {
 		ctx.rect(
 			this.startPosX
 			, this.startPosY
-			, Map.map[0].length * this.size
-			, Map.map.length * this.size
+			, Map.sizeW * this.size
+			, Map.sizeH * this.size
 		);
 		ctx.fill();
 		ctx.stroke();
@@ -42,8 +42,8 @@ class Draw {
 
 	static puyo(ctx){
 		ctx.strokeStyle = "black";
-		for (let y = 0; y < Map.map.length; y ++){
-			for (let x = 0; x < Map.map[y].length; x ++){
+		for (let y = 0; y < Map.sizeH; y ++){
+			for (let x = 0; x < Map.sizeW; x ++){
 				const TYPE = Map.map[y][x];
 				if (TYPE == Map.empty){
 					continue;
@@ -110,7 +110,7 @@ class Draw {
 		if (this.isErase){
 			ctx.font = this.size +"px 'メイリオ'";
 			ctx.fillStyle = "red";
-			ctx.fillText(this.chain +"れんさ！", this.startPosX + this.size, (Map.map.length / 2 + 1) * this.size);
+			ctx.fillText(this.chain +"れんさ！", this.startPosX + this.size, (Map.sizeH / 2 + 1) * this.size);
 		}
 	}
 

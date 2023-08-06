@@ -22,7 +22,7 @@ class Me {
 	 * 初期化
 	 */
 	static initialize(){
-		this.posX = Map.map[0].length / 2;
+		this.posX = Map.sizeW / 2;
 		this.posY = 1;
 		this.type = [Puyo.createType(), Puyo.createType()];
 		this.direction = this.directionMap.down;
@@ -86,7 +86,7 @@ class Me {
 			case this.directionMap.down:
 				
 				// 右が壁である
-				if (this.posX + 1 >= Map.map[0].length){
+				if (this.posX + 1 >= Map.sizeW){
 					
 					// 左にぷよがない
 					if ( ! (Map.map[this.posY][this.posX - 1] in Puyo.types) ){
@@ -134,7 +134,7 @@ class Me {
 			case this.directionMap.left:
 
 				// 下が壁である / 下にぷよがある
-				if (this.posY + 1 >= Map.map.length || Map.map[this.posY + 1][this.posX] in Puyo.types){
+				if (this.posY + 1 >= Map.sizeH || Map.map[this.posY + 1][this.posX] in Puyo.types){
 					
 					// 上昇回数が最大の場合は上昇を許さない
 					if (this.upCnt >= this.maxUpNum){
@@ -188,7 +188,7 @@ class Me {
 	static move(diffX){
 
 		if (this.posX + diffX < 0
-			|| this.posX + diffX >= Map.map[0].length){
+			|| this.posX + diffX >= Map.sizeW){
 			return;
 		}
 
@@ -220,7 +220,7 @@ class Me {
 			// ○
 			case this.directionMap.up:
 				if (
-					this.posY + 1 >= Map.map.length
+					this.posY + 1 >= Map.sizeH
 					|| Map.map[this.posY][this.posX + diffX] != Map.empty
 					|| Map.map[this.posY + 1][this.posX + diffX] != Map.empty
 				) {
@@ -252,7 +252,7 @@ class Me {
 
 		this.isLanding = true;
 
-		if (this.posY + 1 >= Map.map.length){
+		if (this.posY + 1 >= Map.sizeH){
 			return;
 		}
 
@@ -280,7 +280,7 @@ class Me {
 			// ○
 			case this.directionMap.up:
 				if (
-					this.posY + 2 >= Map.map.length
+					this.posY + 2 >= Map.sizeH
 					|| Map.map[this.posY + 2][this.posX] != Map.empty
 				) {
 					return;
