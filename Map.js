@@ -39,7 +39,7 @@ class Map {
 	 * @returns
 	 */
 	static getNgArea(){
-		return {"posX": this.sizeW / 2, "posY": 0};
+		return {"posX": this.sizeW / 2 - 1, "posY": 0};
 	}
 	
 	/**

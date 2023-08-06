@@ -22,7 +22,7 @@ class Me {
 	 * 初期化
 	 */
 	static initialize(){
-		this.posX = Map.sizeW / 2;
+		this.posX = Map.sizeW / 2 - 1;
 		this.posY = 1;
 		this.type = [Puyo.createType(), Puyo.createType()];
 		this.direction = this.directionMap.down;
