@@ -15,8 +15,11 @@ class Draw {
 	/** ぷよ全消し時にtrue */
 	static isAllErase = false;
 
-	/**アニメーション用 */
+	/** アニメーション用 */
 	static mainPuyoBorderFlg = true;
+
+	/** 詳細エリアテキストサイズ */
+	static detailTextSize = 15;
 
 	static exec(ctx){
 		
@@ -33,7 +36,7 @@ class Draw {
 		ctx.rect(
 			0
 			, 0
-			, Map.sizeW * this.size
+			, this.startPosX + Map.sizeW * this.size + 200
 			, Map.sizeH * this.size
 		);
 		ctx.closePath();
@@ -100,9 +103,12 @@ class Draw {
 		ctx.stroke();
 		ctx.lineWidth = 1;
 
-		ctx.font = this.size +"px 'ＭＳ ゴシック'";
-		ctx.fillStyle = "red";
-		ctx.fillText("Hello", detailStartPosX, detailStartPosY + 50);
+		ctx.font = this.detailTextSize +"px 'ＭＳ ゴシック'";
+		ctx.fillStyle = "black";
+		ctx.fillText("■スコア", detailStartPosX, detailStartPosY + this.detailTextSize);
+		ctx.fillText(Score.getSum(), detailStartPosX + this.detailTextSize, detailStartPosY + this.detailTextSize * 2);
+		ctx.fillText("■上昇許容回数残", detailStartPosX, detailStartPosY + this.detailTextSize * 4);
+		ctx.fillText((Me.maxUpNum - Me.upCnt), detailStartPosX + this.detailTextSize, detailStartPosY + this.detailTextSize * 5);
 	}
 
 	static puyo(ctx){

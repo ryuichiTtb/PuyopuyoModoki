@@ -18,6 +18,13 @@ setInterval(() => {
 }, 100);
 
 /**
+ * スコア加算
+ */
+let scoreInterval = setInterval(() => {
+	Score.sum += Score.base / 10;
+}, 100);
+
+/**
  * 落下処理
  */
 let fallInterval;
@@ -123,6 +130,9 @@ function next(){
 	// NGエリアにぷよが重なっている場合
 	const ng = Map.getNgArea();
 	if (Map.map[ng.posY][ng.posX] != Map.ng){
+		
+		clearInterval(scoreInterval);
+
 		alert("GAME OVER");
 		return;
 	}
