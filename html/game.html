@@ -1,0 +1,58 @@
+<html>
+	<head>
+		<meta charset="utf-8" />
+		
+		<!-- 画面幅に合わせる -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+		<style>
+			html, body, #canvas {
+				display: block;
+				width: 100%;
+				margin: 0;
+				padding: 0;
+				/** ドラッグ禁止 */
+				user-select: none;
+			}
+			html, body{
+				/** モバイル用ダブルタップ禁止 */
+				touch-action: manipulation;
+				height: 100%;
+			}
+			#canvas {
+				height: 75%;
+			}
+			#buttonArea {
+				width: 100%;
+				height: 20%;
+				text-align: center;
+				display: flex;
+			}
+		</style>
+	</head>
+
+	<body>
+		<canvas id="canvas" ></canvas>
+		<br />
+
+		<div id="buttonArea">
+			<div style="width: 70%;">
+				<input type="button" value="◀" onclick="Me.move(-1);" style="width: 45%; height: 45%; font-size: 40px;" />
+				<input type="button" value="▶" onclick="Me.move(1);"  style="width: 45%; height: 45%; font-size: 40px;" />
+				<br />
+				<input type="button" value="▼" onclick="Me.fall(); fall();" style="width: 85%; height: 45%; font-size: 40px;" />
+			</div>
+			<div style="width: 30%;">
+				<input type="button" value="⟳" onclick="Me.rotate();" style="width: 90%; height: 90%; font-size: 40px;" />
+			</div>
+		</div>
+
+		<script src="../js/Util.js"></script>
+		<script src="../js/Puyo.js"></script>
+		<script src="../js/Score.js"></script>
+		<script src="../js/Map.js"></script>
+		<script src="../js/Me.js"></script>
+		<script src="../js/Draw.js"></script>
+		<script src="../js/Main.js"></script>
+	</body>
+</html>

@@ -299,3 +299,5 @@ class Me {
 		this.isLanding = false;
 	}
 }
+
+Me.initialize();

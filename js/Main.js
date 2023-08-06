@@ -4,9 +4,6 @@ canvas.height = 600;
 
 let context = canvas.getContext("2d");
 
-Map.initialize();
-Me.initialize();
-
 /**
  * 描画処理
  */
@@ -141,7 +138,15 @@ function next(){
 		
 		clearInterval(scoreInterval);
 
-		alert("GAME OVER");
+		alert("\r\n********************\r\nGAME OVER\r\n\r\nスコア："+ Score.getSum() +"\r\n********************");
+		
+		if (window.confirm("もう一度プレイしますか？")){
+			window.location.reload();
+		}
+		else {
+			window.location.href = "../main.html";
+		}
+
 		return;
 	}
 
