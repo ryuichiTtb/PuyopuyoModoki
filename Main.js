@@ -36,7 +36,9 @@ const fall =()=> {
 		// マップ更新
 		Map.map[Me.posY][Me.posX] = Me.type[0];
 		const SUB = Me.getSubPuyo();
-		Map.map[SUB.posY][SUB.posX] = Me.type[1];
+		if (SUB.posY >= 0){
+			Map.map[SUB.posY][SUB.posX] = Me.type[1];
+		}
 		Me.posY = Me.posY = Map.empty;
 
 		Draw.drawMe = false;
@@ -77,7 +79,6 @@ const fallAll =()=> {
  * ぷよ連結判定 > 削除処理
  */
 function erase(){
-	let doErase = false;
 	for (let y = 0; y < Map.sizeH; y ++){
 		for (let x = 0; x < Map.sizeW; x ++){
 			if ( ! (Map.map[y][x] in Puyo.types) ){
@@ -85,7 +86,12 @@ function erase(){
 			}
 			let res = Map.getConnection(x, y);
 			if (res && res.length >= 4){
-				doErase = true;
+				Draw.isErase = true;
+				Draw.addScore += Score.calc(res.length, Draw.chain + 1);
+
+				Score.sum += Draw.addScore;
+				Score.beforeAddScore = Draw.addScore;
+
 				for (let i = 0; i < res.length; i ++){
 					Map.map[ res[i].posY ][ res[i].posX ] = Map.empty;
 				}
@@ -94,13 +100,13 @@ function erase(){
 	}
 
 	// ぷよ消し時
-	if (doErase){
-		Draw.isErase = true;
+	if (Draw.isErase){
 		Draw.chain ++;
 		Draw.exec(context);
 
 		setTimeout(() => {
 			Draw.isErase = false;
+			Draw.addScore = 0;
 			fallAllInterval = setInterval(fallAll, fallAllIntervalDelay);
 		}, 800);
 	}
@@ -110,9 +116,11 @@ function erase(){
 		// 全消しの場合
 		if ( ! Map.existsPuyo() ){
 			Draw.isAllErase = true;
+			Draw.addScore += Score.calcBonus();
 			Draw.exec(context);
 			setTimeout(() => {
 				Draw.isAllErase = false;
+				Draw.addScore = 0;
 				next();
 			}, 1000);
 		}

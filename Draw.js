@@ -9,6 +9,8 @@ class Draw {
 
 	/** ぷよ消し時の連鎖数 */
 	static chain = 0;
+
+	static addScore = 0;
 	
 	/** ぷよ消し時にtrue */
 	static isErase = false;
@@ -107,8 +109,17 @@ class Draw {
 		ctx.fillStyle = "black";
 		ctx.fillText("■スコア", detailStartPosX, detailStartPosY + this.detailTextSize);
 		ctx.fillText(Score.getSum(), detailStartPosX + this.detailTextSize, detailStartPosY + this.detailTextSize * 2);
-		ctx.fillText("■上昇許容回数残", detailStartPosX, detailStartPosY + this.detailTextSize * 4);
-		ctx.fillText((Me.maxUpNum - Me.upCnt), detailStartPosX + this.detailTextSize, detailStartPosY + this.detailTextSize * 5);
+		if (this.isErase || this.isAllErase){
+			ctx.fillStyle = "red";
+			ctx.fillText(
+				"+"+ this.addScore.toFixed(2) + (this.isAllErase ? "【ボーナス】" : "" )
+				, detailStartPosX + this.detailTextSize
+				, detailStartPosY + this.detailTextSize * 3
+			);
+			ctx.fillStyle = "black";
+		}
+		ctx.fillText("■上昇許容回数残", detailStartPosX, detailStartPosY + this.detailTextSize * 5);
+		ctx.fillText((Me.maxUpNum - Me.upCnt), detailStartPosX + this.detailTextSize, detailStartPosY + this.detailTextSize * 6);
 	}
 
 	static puyo(ctx){
