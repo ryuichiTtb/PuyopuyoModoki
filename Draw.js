@@ -30,7 +30,7 @@ class Draw {
 		for (let y = 0; y < Map.map.length; y ++){
 			for (let x = 0; x < Map.map[y].length; x ++){
 				const TYPE = Map.map[y][x];
-				if (TYPE == -1){
+				if (TYPE == Map.empty){
 					continue;
 				}
 				const POS_X = this.startPosX + x * this.size;
@@ -43,7 +43,7 @@ class Draw {
 					continue;
 				}
 
-				const COLOR = Puyo.color[TYPE];
+				const COLOR = Puyo.types[TYPE];
 				ctx.fillStyle = COLOR;
 
 				ctx.beginPath();
@@ -60,13 +60,14 @@ class Draw {
 			return;
 		}
 
-		// メインぷよ
-		ctx.fillStyle = Puyo.color[Me.type[0]];
-		ctx.strokeStyle = "white";
+		// サブぷよ
+		ctx.fillStyle = Puyo.types[Me.type[1]];
+		ctx.strokeStyle = "black";
 		ctx.beginPath();
+		const subPuyo = Me.getSubPuyo();
 		ctx.rect(
-			this.startPosX + Me.posX * this.size
-			, this.startPosY + Me.posY * this.size
+			this.startPosX + subPuyo.posX * this.size
+			, this.startPosY + subPuyo.posY * this.size
 			, this.size
 			, this.size
 		);
@@ -74,28 +75,13 @@ class Draw {
 		ctx.fill();
 		ctx.stroke();
 
-		// サブぷよ
-		let diffPosX = 0, diffPosY = 0;
-		switch(Me.direction){
-			case Me.directionMap.down:
-				diffPosY = -1;
-			break;
-			case Me.directionMap.left:
-				diffPosX = 1;
-			break;
-			case Me.directionMap.up:
-				diffPosY = 1;
-			break;
-			case Me.directionMap.right:
-				diffPosX = -1;
-			break;
-		}
-		ctx.fillStyle = Puyo.color[Me.type[1]];
-		ctx.strokeStyle = "black";
+		// メインぷよ
+		ctx.fillStyle = Puyo.types[Me.type[0]];
+		ctx.strokeStyle = "white";
 		ctx.beginPath();
 		ctx.rect(
-			this.startPosX + (Me.posX + diffPosX) * this.size
-			, this.startPosY + (Me.posY + diffPosY) * this.size
+			this.startPosX + Me.posX * this.size
+			, this.startPosY + Me.posY * this.size
 			, this.size
 			, this.size
 		);

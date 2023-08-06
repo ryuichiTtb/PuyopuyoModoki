@@ -27,7 +27,7 @@ const fall =()=> {
 		Map.map[Me.posY][Me.posX] = Me.type[0];
 		const SUB = Me.getSubPuyo();
 		Map.map[SUB.posY][SUB.posX] = Me.type[1];
-		Me.posY = Me.posY = -1;
+		Me.posY = Me.posY = Map.empty;
 
 		Draw.drawMe = false;
 		fallAllInterval = setInterval(fallAll, fallAllIntervalDelay);
@@ -47,13 +47,12 @@ const fallAll =()=> {
 	let complete = true;
 	for (let y = Map.map.length - 1; y > 0; y --){
 		for (let x = 0; x < Map.map[y].length; x ++){
-			if (Map.map[y][x] != -1){
+			if (Map.map[y][x] != Map.empty){
 				continue;
 			}
-			// if (Map.map[y - 1][x] != -1){
-			if (Map.map[y - 1][x] in Puyo.color){
+			if (Map.map[y - 1][x] in Puyo.types){
 				Map.map[y][x] = Map.map[y - 1][x];
-				Map.map[y - 1][x] = -1;
+				Map.map[y - 1][x] = Map.empty;
 				complete = false;
 			}
 		}
@@ -71,14 +70,14 @@ function erase(){
 	let doErase = false;
 	for (let y = 0; y < Map.map.length; y ++){
 		for (let x = 0; x < Map.map[y].length; x ++){
-			if (Map.map[y][x] == -1){
+			if (Map.map[y][x] == Map.empty){
 				continue;
 			}
 			let res = Map.getConnection(x, y);
 			if (res && res.length >= 4){
 				doErase = true;
 				for (let i = 0; i < res.length; i ++){
-					Map.map[ res[i].posY ][ res[i].posX ] = -1;
+					Map.map[ res[i].posY ][ res[i].posX ] = Map.empty;
 				}
 			}
 		}

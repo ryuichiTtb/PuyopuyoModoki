@@ -78,11 +78,42 @@ class Me {
 			// ○
 			// ◎　→　◎○
 			case this.directionMap.down:
-				if (
-					this.posX + 1 >= Map.map[0].length
-					|| Map.map[this.posY][this.posX + 1] != -1
-				) {
-					return;
+				
+				// 右が壁である
+				if (this.posX + 1 >= Map.map[0].length){
+					
+					// 左にぷよがない
+					if ( ! (Map.map[this.posY][this.posX - 1] in Puyo.types) ){
+
+						// 左に移動
+						this.posX --;
+					}
+					else {
+						return;
+					}
+				}
+				// 右にぷよがある
+				else if (Map.map[this.posY][this.posX + 1] in Puyo.types) {
+
+					// 右上にぷよがある
+					if (Map.map[this.posY - 1][this.posX + 1] in Puyo.types){
+
+						// 左にぷよがない
+						if ( ! (Map.map[this.posY][this.posX - 1] in Puyo.types) ){
+
+							// 左に移動
+							this.posX --;
+						}
+						else {
+							return;
+						}
+					}
+					// 右上にぷよがない
+					else {
+
+						// 上に移動
+						this.posY --;
+					}
 				}
 				this.direction = this.directionMap.left;
 			break;
@@ -92,7 +123,7 @@ class Me {
 			case this.directionMap.left:
 				if (
 					this.posY + 1 >= Map.map.length
-					|| Map.map[this.posY + 1][this.posX] != -1
+					|| Map.map[this.posY + 1][this.posX] != Map.empty
 				) {
 					return;
 				}
@@ -102,11 +133,19 @@ class Me {
 			// ◎　→　○◎
 			// ○
 			case this.directionMap.up:
-				if (
-					this.posX - 1 <= -1
-					|| Map.map[this.posY][this.posX - 1] != -1
-				) {
-					return;
+				
+				// 左が壁である / 左にぷよがある
+				if (this.posX - 1 < 0 || Map.map[this.posY][this.posX - 1] in Puyo.types){
+					
+					// 右にぷよがない
+					if ( ! (Map.map[this.posY][this.posX + 1] in Puyo.types) ){
+
+						// 右に移動
+						this.posX ++;
+					}
+					else {
+						return;
+					}
 				}
 				this.direction = this.directionMap.right;
 			break;
@@ -114,12 +153,14 @@ class Me {
 			// 　　　　　○
 			// ○◎　→　◎
 			case this.directionMap.right:
-				if (Map.map[this.posY - 1][this.posX] != -1) {
+				if (Map.map[this.posY - 1][this.posX] != Map.empty) {
 					return;
 				}
 				this.direction = this.directionMap.down;
 			break;
 		}
+
+		this.isLanding = false;
 	}
 
 	/**
@@ -129,7 +170,7 @@ class Me {
 	 */
 	static move(diffX){
 
-		if (this.posX + diffX <= -1
+		if (this.posX + diffX < 0
 			|| this.posX + diffX >= Map.map[0].length){
 			return;
 		}
@@ -141,8 +182,8 @@ class Me {
 			// ◎
 			case this.directionMap.down:
 				if (
-					Map.map[this.posY][this.posX + diffX] != -1
-					|| Map.map[this.posY - 1][this.posX + diffX] != -1
+					Map.map[this.posY][this.posX + diffX] != Map.empty
+					|| Map.map[this.posY - 1][this.posX + diffX] != Map.empty
 				) {
 					return;
 				}
@@ -151,8 +192,8 @@ class Me {
 			// ◎○
 			case this.directionMap.left:
 				if (
-					Map.map[this.posY][this.posX + diffX] != -1
-					|| Map.map[this.posY][this.posX + 1 + diffX] != -1
+					Map.map[this.posY][this.posX + diffX] != Map.empty
+					|| Map.map[this.posY][this.posX + 1 + diffX] != Map.empty
 				) {
 					return;
 				}
@@ -163,8 +204,8 @@ class Me {
 			case this.directionMap.up:
 				if (
 					this.posY + 1 >= Map.map.length
-					|| Map.map[this.posY][this.posX + diffX] != -1
-					|| Map.map[this.posY + 1][this.posX + diffX] != -1
+					|| Map.map[this.posY][this.posX + diffX] != Map.empty
+					|| Map.map[this.posY + 1][this.posX + diffX] != Map.empty
 				) {
 					this.isLanding = true;
 					return;
@@ -174,8 +215,8 @@ class Me {
 			// ○◎
 			case this.directionMap.right:
 				if (
-					Map.map[this.posY][this.posX + diffX] != -1
-					|| Map.map[this.posY][this.posX - 1 + diffX] != -1
+					Map.map[this.posY][this.posX + diffX] != Map.empty
+					|| Map.map[this.posY][this.posX - 1 + diffX] != Map.empty
 				) {
 					return;
 				}
@@ -204,15 +245,15 @@ class Me {
 			// ○
 			// ◎
 			case this.directionMap.down:
-				if (Map.map[this.posY + 1][this.posX] != -1) {
+				if (Map.map[this.posY + 1][this.posX] != Map.empty) {
 					return;
 				}
 			break;
 
 			// ◎○
 			case this.directionMap.left:
-				if (Map.map[this.posY + 1][this.posX] != -1
-					|| Map.map[this.posY + 1][this.posX + 1] != -1
+				if (Map.map[this.posY + 1][this.posX] != Map.empty
+					|| Map.map[this.posY + 1][this.posX + 1] != Map.empty
 				) {
 					return;
 				}
@@ -223,7 +264,7 @@ class Me {
 			case this.directionMap.up:
 				if (
 					this.posY + 2 >= Map.map.length
-					|| Map.map[this.posY + 2][this.posX] != -1
+					|| Map.map[this.posY + 2][this.posX] != Map.empty
 				) {
 					return;
 				}
@@ -232,8 +273,8 @@ class Me {
 			// ○◎
 			case this.directionMap.right:
 				if (
-					Map.map[this.posY + 1][this.posX] != -1
-					|| Map.map[this.posY + 1][this.posX - 1] != -1
+					Map.map[this.posY + 1][this.posX] != Map.empty
+					|| Map.map[this.posY + 1][this.posX - 1] != Map.empty
 				) {
 					return;
 				}

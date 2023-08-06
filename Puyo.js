@@ -1,7 +1,7 @@
 class Puyo {
 	
 	/** ぷよの色 */
-	static color = {
+	static types = {
 		0: "#ed0000",
 		1: "#0058ff",
 		2: "#ffe100",
@@ -14,7 +14,7 @@ class Puyo {
 	}
 
 	getColor(){
-		return Puyo.color[ this.type ];
+		return Puyo.types[ this.type ];
 	}
 
 	static createType(){

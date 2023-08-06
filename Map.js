@@ -11,10 +11,12 @@ class Map {
 		[-1, -1, -1, -1, -1, -1, -1, -1],
 		[-1, -1, -1, -1, -1, -1, -1, -1]
 	]
-	/** トレース済判定用 */
-	static work = 99;
+	/** 空間 */
+	static empty = -1;
 	/** NGエリア */
 	static ng = 98;
+	/** トレース済判定用 */
+	static work = 99;
 
 	/**
 	 * 初期化
@@ -45,7 +47,7 @@ class Map {
 		}
 
 		const type = this.map[posY][posX];
-		if (type == -1){
+		if (type == this.empty){
 			return null;
 		}
 
