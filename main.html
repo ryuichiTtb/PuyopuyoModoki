@@ -2,7 +2,7 @@
 	<head>
 		<meta charset="utf-8" />
 		
-		<!-- 画面幅に合わせる。また、拡大縮小を禁止 -->
+		<!-- 画面幅に合わせる -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
 		<style>
@@ -29,17 +29,6 @@
 				display: flex;
 			}
 		</style>
-
-		<script type="text/javascript">
-			/**
-			 * モバイル用：ズームイン・ズームアウト 禁止
-			 */
-			document.addEventListener('touchstart', event => {
-			if (event.touches.length > 1) {
-				event.preventDefault();
-			}
-			}, true);
-		</script>
 	</head>
 
 	<body>
