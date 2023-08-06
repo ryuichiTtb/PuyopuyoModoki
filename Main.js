@@ -73,7 +73,7 @@ function erase(){
 	let doErase = false;
 	for (let y = 0; y < Map.sizeH; y ++){
 		for (let x = 0; x < Map.sizeW; x ++){
-			if (Map.map[y][x] == Map.empty){
+			if ( ! (Map.map[y][x] in Puyo.types) ){
 				continue;
 			}
 			let res = Map.getConnection(x, y);
@@ -85,22 +85,33 @@ function erase(){
 			}
 		}
 	}
+
+	// ぷよ消し時
 	if (doErase){
 		Draw.isErase = true;
 		Draw.chain ++;
 		Draw.exec(context);
 
-		setTimeout(
-			() => {
-				Draw.isErase = false;
-				fallAllInterval = setInterval(fallAll, fallAllIntervalDelay);
-			}
-			, 800
-		);
+		setTimeout(() => {
+			Draw.isErase = false;
+			fallAllInterval = setInterval(fallAll, fallAllIntervalDelay);
+		}, 800);
 	}
 	else {
 		Draw.chain = 0;
-		next();
+
+		// 全消しの場合
+		if ( ! Map.existsPuyo() ){
+			Draw.isAllErase = true;
+			Draw.exec(context);
+			setTimeout(() => {
+				Draw.isAllErase = false;
+				next();
+			}, 1000);
+		}
+		else {
+			next();
+		}
 	}
 }
 

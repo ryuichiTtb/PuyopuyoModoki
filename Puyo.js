@@ -3,9 +3,7 @@ class Puyo {
 	/** ぷよの色 */
 	static types = {
 		0: "#ed0000",
-		1: "#0058ff",
-		2: "#ffe100",
-		3: "#6cff00"
+		1: "#0058ff"
 	};
 	type;
 
@@ -18,6 +16,6 @@ class Puyo {
 	}
 
 	static createType(){
-		return Math.floor(Math.random() * 4);
+		return Math.floor(Math.random() * Object.keys( this.types ).length);
 	}
 }

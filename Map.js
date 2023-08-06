@@ -43,6 +43,21 @@ class Map {
 	}
 	
 	/**
+	 * ぷよ存在チェック
+	 * @returns 
+	 */
+	static existsPuyo() {
+		for (let y = 0; y < this.sizeH; y ++){
+			for (let x = 0; x < this.sizeW; x ++){
+				if (this.map[y][x] in Puyo.types){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	/**
 	 * 指定位置のタイプと同一の、繋がっている各ぷよの位置を返却
 	 * @param {*} posX 
 	 * @param {*} posY 
