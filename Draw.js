@@ -4,6 +4,7 @@ class Draw {
 	static startPosX = 10;
 	static startPosY = 30;
 	
+	/** 自ぷよ表示制御 */
 	static drawMe = true;
 
 	/** ぷよ消し時の連鎖数 */
@@ -16,6 +17,7 @@ class Draw {
 	static exec(ctx){
 		
 		this.field(ctx);
+		//this.detail(ctx);
 		this.puyo(ctx);
 		this.me(ctx);
 		this.other(ctx);
@@ -34,7 +36,8 @@ class Draw {
 		ctx.fill();
 
 		ctx.fillStyle = "black";
-		ctx.strokeStyle = "black";
+		ctx.strokeStyle = "purple";
+		ctx.lineWidth = 5;
 		ctx.beginPath();
 		ctx.rect(
 			this.startPosX
@@ -45,6 +48,7 @@ class Draw {
 		ctx.closePath();
 		ctx.fill();
 		ctx.stroke();
+		ctx.lineWidth = 1;
 
 		for (let x = 1; x < Map.sizeW; x ++){
 			ctx.beginPath();
@@ -65,9 +69,12 @@ class Draw {
 	}
 
 	static detail(ctx) {
+
+		//const detailStartPosX = this.startPosX + 
+
 		ctx.font = this.size +"px 'メイリオ'";
 		ctx.fillStyle = "red";
-		ctx.fillText(Me.upCnt, this.size * 2, this.size * 2);
+		//ctx.fillText(, this.size * 2, this.size * 2);
 	}
 
 	static puyo(ctx){
