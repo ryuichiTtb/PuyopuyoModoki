@@ -18,12 +18,10 @@
 				height: 75%;
 			}
 			#buttonArea {
+				width: 100%;
 				height: 20%;
-			}
-			#buttonArea input {
-				width: 49%;
-				height: 50%;
-				font-size: 40px;
+				text-align: center;
+				display: flex;
 			}
 		</style>
 	</head>
@@ -32,12 +30,16 @@
 		<canvas id="canvas" ></canvas>
 		<br />
 
-		<div id="buttonArea" style="width: 100%; text-align: center;">
-			<input type="button" value="<<" onclick="Me.move(-1);" />
-			<input type="button" value=">>" onclick="Me.move(1);" />
-			<br />
-			<input type="button" value="落下" onclick="Me.fall(); fall();" />
-			<input type="button" value="回転" onclick="Me.rotate();" />
+		<div id="buttonArea">
+			<div style="width: 70%;">
+				<input type="button" value="◀" onclick="Me.move(-1);" style="width: 45%; height: 50%; font-size: 50px;" />
+				<input type="button" value="▶" onclick="Me.move(1);"  style="width: 45%; height: 50%; font-size: 50px;" />
+				<br />
+				<input type="button" value="▼" onclick="Me.fall(); fall();" style="width: 85%; height: 50%; font-size: 80px;" />
+			</div>
+			<div style="width: 30%;">
+				<input type="button" value="⟳" onclick="Me.rotate();" style="width: 90%; height: 100%; font-size: 120px;" />
+			</div>
 		</div>
 
 		<script src="Map.js"></script>
