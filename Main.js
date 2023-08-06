@@ -83,9 +83,20 @@ function erase(){
 		}
 	}
 	if (doErase){
-		fallAllInterval = setInterval(fallAll, fallAllIntervalDelay);
+		Draw.isErase = true;
+		Draw.chain ++;
+		Draw.exec(context);
+
+		setTimeout(
+			() => {
+				Draw.isErase = false;
+				fallAllInterval = setInterval(fallAll, fallAllIntervalDelay);
+			}
+			, 800
+		);
 	}
 	else {
+		Draw.chain = 0;
 		next();
 	}
 }

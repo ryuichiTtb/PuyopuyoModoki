@@ -6,17 +6,16 @@ class Draw {
 	
 	static drawMe = true;
 
+	/** ぷよ消し時の連鎖数 */
+	static chain = 0;
+	static isErase = false;
+
 	static exec(ctx){
 		
 		this.field(ctx);
 		this.puyo(ctx);
 		this.me(ctx);
-	}
-
-	static detail(ctx) {
-		ctx.font = this.size +"px 'メイリオ'";
-		ctx.fillStyle = "red";
-		ctx.fillText(Me.upCnt, this.size * 2, this.size * 2);
+		this.other(ctx);
 	}
 
 	static field(ctx){
@@ -30,6 +29,12 @@ class Draw {
 		);
 		ctx.fill();
 		ctx.stroke();
+	}
+
+	static detail(ctx) {
+		ctx.font = this.size +"px 'メイリオ'";
+		ctx.fillStyle = "red";
+		ctx.fillText(Me.upCnt, this.size * 2, this.size * 2);
 	}
 
 	static puyo(ctx){
@@ -96,4 +101,14 @@ class Draw {
 		ctx.fill();
 		ctx.stroke();
 	}
+
+	static other(ctx) {
+
+		if (this.isErase){
+			ctx.font = this.size +"px 'メイリオ'";
+			ctx.fillStyle = "red";
+			ctx.fillText(this.chain +"連鎖 !!", this.startPosX + this.size, (Map.map.length / 2 + 1) * this.size);
+		}
+	}
+
 }
