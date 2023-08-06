@@ -4,6 +4,7 @@ canvas.height = 600;
 
 let context = canvas.getContext("2d");
 
+Map.initialize();
 Me.initialize();
 
 /**
@@ -49,7 +50,8 @@ const fallAll =()=> {
 			if (Map.map[y][x] != -1){
 				continue;
 			}
-			if (Map.map[y - 1][x] != -1){
+			// if (Map.map[y - 1][x] != -1){
+			if (Map.map[y - 1][x] in Puyo.color){
 				Map.map[y][x] = Map.map[y - 1][x];
 				Map.map[y - 1][x] = -1;
 				complete = false;
@@ -94,9 +96,17 @@ function erase(){
  */
 function next(){
 
+	// NGエリアにぷよが重なっている場合
+	const ng = Map.getNgArea();
+	if (Map.map[ng.posY][ng.posX] != Map.ng){
+		alert("GAME OVER");
+		return;
+	}
+
 	// 新規ぷよ生成
 	Me.initialize();
 	Draw.drawMe = true;
+	Draw.exec(context);
 
 	// 着地フラグ初期化
 	Me.isLanding = false;
