@@ -1,15 +1,22 @@
 class Draw {
 
 	static size = 50;
-	static startPosX = 2 * this.size;
-	static startPosY = 1 * this.size;
+	static startPosX = 10;
+	static startPosY = 30;
 	
 	static drawMe = true;
 
 	static exec(ctx){
+		
 		this.field(ctx);
 		this.puyo(ctx);
 		this.me(ctx);
+	}
+
+	static detail(ctx) {
+		ctx.font = this.size +"px 'メイリオ'";
+		ctx.fillStyle = "red";
+		ctx.fillText(Me.upCnt, this.size * 2, this.size * 2);
 	}
 
 	static field(ctx){

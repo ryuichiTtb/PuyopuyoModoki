@@ -12,6 +12,11 @@ class Me {
 		'up': 2,
 		'right': 3
 	};
+	
+	/** 回転による上昇カウント */
+	static upCnt = 0;
+	/** 連続的に上昇する最大回数 */
+	static maxUpNum = 5;
 
 	/**
 	 * 初期化
@@ -21,6 +26,7 @@ class Me {
 		this.posY = 1;
 		this.type = [Puyo.createType(), Puyo.createType()];
 		this.direction = this.directionMap.down;
+		this.upCnt = 0;
 	}
 
 	/**
@@ -111,8 +117,13 @@ class Me {
 					// 右上にぷよがない
 					else {
 
+						// 上昇回数が最大の場合は上昇を許さない
+						if (this.upCnt >= this.maxUpNum){
+							return;
+						}
 						// 上に移動
 						this.posY --;
+						this.upCnt ++;
 					}
 				}
 				this.direction = this.directionMap.left;
@@ -121,11 +132,17 @@ class Me {
 			// ◎○　→　◎
 			// 　　　　　○
 			case this.directionMap.left:
-				if (
-					this.posY + 1 >= Map.map.length
-					|| Map.map[this.posY + 1][this.posX] != Map.empty
-				) {
-					return;
+
+				// 下が壁である / 下にぷよがある
+				if (this.posY + 1 >= Map.map.length || Map.map[this.posY + 1][this.posX] in Puyo.types){
+					
+					// 上昇回数が最大の場合は上昇を許さない
+					if (this.upCnt >= this.maxUpNum){
+						return;
+					}
+					// 上に移動
+					this.posY --;
+					this.upCnt ++;
 				}
 				this.direction = this.directionMap.up;
 			break;
