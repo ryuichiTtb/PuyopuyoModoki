@@ -22,16 +22,46 @@ class Draw {
 	}
 
 	static field(ctx){
-		ctx.fillStyle = "gray";
+		ctx.fillStyle = "white";
+		ctx.beginPath();
+		ctx.rect(
+			0
+			, 0
+			, Map.sizeW * this.size
+			, Map.sizeH * this.size
+		);
+		ctx.closePath();
+		ctx.fill();
+
+		ctx.fillStyle = "black";
 		ctx.strokeStyle = "black";
+		ctx.beginPath();
 		ctx.rect(
 			this.startPosX
 			, this.startPosY
 			, Map.sizeW * this.size
 			, Map.sizeH * this.size
 		);
+		ctx.closePath();
 		ctx.fill();
 		ctx.stroke();
+
+		for (let x = 1; x < Map.sizeW; x ++){
+			ctx.beginPath();
+			ctx.moveTo(this.startPosX + x * this.size, this.startPosY + 1);
+			ctx.lineTo(this.startPosX + x * this.size, this.startPosY + Map.sizeH * this.size - 1);
+			ctx.closePath();
+			ctx.strokeStyle = "gray";
+			ctx.stroke();
+		}
+		for (let y = 1; y < Map.sizeH; y ++){
+			ctx.beginPath();
+			ctx.moveTo(this.startPosX + 1, this.startPosY + y * this.size);
+			ctx.lineTo(this.startPosX + Map.sizeW * this.size - 1, this.startPosY + y * this.size);
+			ctx.closePath();
+			ctx.strokeStyle = "gray";
+			ctx.stroke();
+		}
 	}
 
 	static detail(ctx) {
@@ -41,7 +71,7 @@ class Draw {
 	}
 
 	static puyo(ctx){
-		ctx.strokeStyle = "black";
+		ctx.strokeStyle = "gray";
 		for (let y = 0; y < Map.sizeH; y ++){
 			for (let x = 0; x < Map.sizeW; x ++){
 				const TYPE = Map.map[y][x];
@@ -77,9 +107,9 @@ class Draw {
 
 		// サブぷよ
 		ctx.fillStyle = Puyo.types[Me.type[1]];
-		ctx.strokeStyle = "black";
-		ctx.beginPath();
+		ctx.strokeStyle = "gray";
 		const subPuyo = Me.getSubPuyo();
+		ctx.beginPath();
 		ctx.rect(
 			this.startPosX + subPuyo.posX * this.size
 			, this.startPosY + subPuyo.posY * this.size

@@ -36,7 +36,7 @@ const fall =()=> {
 		fallAllInterval = setInterval(fallAll, fallAllIntervalDelay);
 	}
 	else {
-		Me.fall();
+		//Me.fall();
 	}
 };
 fallInterval = setInterval(fall, fallIntervalDelay);

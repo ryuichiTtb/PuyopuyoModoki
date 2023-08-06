@@ -23,7 +23,7 @@ class Me {
 	 */
 	static initialize(){
 		this.posX = Map.sizeW / 2 - 1;
-		this.posY = 1;
+		this.posY = 0;
 		this.type = [Puyo.createType(), Puyo.createType()];
 		this.direction = this.directionMap.down;
 		this.upCnt = 0;
@@ -198,10 +198,7 @@ class Me {
 			// ○
 			// ◎
 			case this.directionMap.down:
-				if (
-					Map.map[this.posY][this.posX + diffX] != Map.empty
-					|| Map.map[this.posY - 1][this.posX + diffX] != Map.empty
-				) {
+				if (Map.map[this.posY][this.posX + diffX] in Puyo.types) {
 					return;
 				}
 			break;
@@ -209,8 +206,8 @@ class Me {
 			// ◎○
 			case this.directionMap.left:
 				if (
-					Map.map[this.posY][this.posX + diffX] != Map.empty
-					|| Map.map[this.posY][this.posX + 1 + diffX] != Map.empty
+					Map.map[this.posY][this.posX + diffX] in Puyo.types
+					|| Map.map[this.posY][this.posX + 1 + diffX] in Puyo.types
 				) {
 					return;
 				}
@@ -221,8 +218,8 @@ class Me {
 			case this.directionMap.up:
 				if (
 					this.posY + 1 >= Map.sizeH
-					|| Map.map[this.posY][this.posX + diffX] != Map.empty
-					|| Map.map[this.posY + 1][this.posX + diffX] != Map.empty
+					|| Map.map[this.posY][this.posX + diffX] in Puyo.types
+					|| Map.map[this.posY + 1][this.posX + diffX] in Puyo.types
 				) {
 					this.isLanding = true;
 					return;
@@ -232,8 +229,8 @@ class Me {
 			// ○◎
 			case this.directionMap.right:
 				if (
-					Map.map[this.posY][this.posX + diffX] != Map.empty
-					|| Map.map[this.posY][this.posX - 1 + diffX] != Map.empty
+					Map.map[this.posY][this.posX + diffX] in Puyo.types
+					|| Map.map[this.posY][this.posX - 1 + diffX] in Puyo.types
 				) {
 					return;
 				}
