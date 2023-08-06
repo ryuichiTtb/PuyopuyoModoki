@@ -1,34 +1,49 @@
-<head>
-	<meta charset="utf-8" />
-</head>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1"/>
 
-<canvas id="canvas"></canvas>
-<br />
+		<style>
+			html, body, #canvas {
+				display: block;
+				width: 100%;
+				margin: 0;
+				padding: 0;
+			}
+			html body{
+				touch-action: manipulation;
+				height: 100%;
+			}
+			#canvas {
+				height: 75%;
+			}
+			#buttonArea {
+				height: 25%;
+			}
+			#buttonArea input {
+				width: 49%;
+				height: 50%;
+				font-size: 40px;
+			}
+		</style>
+	</head>
 
-<script src="Map.js"></script>
-<script src="Puyo.js"></script>
-<script src="Me.js"></script>
-<script src="Draw.js"></script>
-<script src="Main.js"></script>
-
-<body>
-	<div style="width: 600px; text-align: center;">
-		<input class="button" type="button" value="<<" onclick="Me.move(-1);" />
-		<input class="button" type="button" value=">>" onclick="Me.move(1);" />
+	<body>
+		<canvas id="canvas" ></canvas>
 		<br />
-		<input class="button" type="button" value="落下" onclick="Me.fall(); fall();" />
-		<input class="button" type="button" value="回転" onclick="Me.rotate();" />
-	</div>
-</body>
 
-<style>
-	html {
-		touch-action: manipulation;
-	}
-	.button {
-		width: 150px;
-		font-size: 30px;
-		padding: 10px;
-		margin: 30px;
-	}
-</style>
+		<div id="buttonArea" style="width: 100%; text-align: center;">
+			<input type="button" value="<<" onclick="Me.move(-1);" />
+			<input type="button" value=">>" onclick="Me.move(1);" />
+			<br />
+			<input type="button" value="落下" onclick="Me.fall(); fall();" />
+			<input type="button" value="回転" onclick="Me.rotate();" />
+		</div>
+
+		<script src="Map.js"></script>
+		<script src="Puyo.js"></script>
+		<script src="Me.js"></script>
+		<script src="Draw.js"></script>
+		<script src="Main.js"></script>
+	</body>
+</html>
