@@ -39,7 +39,7 @@ class Draw {
 				if (TYPE == Map.ng){
 					ctx.font = this.size +"px 'メイリオ'";
 					ctx.fillStyle = "red";
-					ctx.fillText("☓", POS_X, POS_Y + this.size);
+					ctx.fillText("X", POS_X, POS_Y + this.size);
 					continue;
 				}
 
