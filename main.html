@@ -29,6 +29,17 @@
 				display: flex;
 			}
 		</style>
+
+		<script type="text/javascript">
+			/**
+			 * モバイル用：ズームイン・ズームアウト 禁止
+			 */
+			document.addEventListener('touchstart', event => {
+			if (event.touches.length > 1) {
+				event.preventDefault();
+			}
+			}, true);
+		</script>
 	</head>
 
 	<body>
