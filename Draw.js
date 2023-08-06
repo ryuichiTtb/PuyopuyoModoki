@@ -33,11 +33,19 @@ class Draw {
 				if (TYPE == -1){
 					continue;
 				}
+				const POS_X = this.startPosX + x * this.size;
+				const POS_Y = this.startPosY + y * this.size;
+
+				if (TYPE == Map.ng){
+					ctx.font = this.size +"px 'メイリオ'";
+					ctx.fillStyle = "red";
+					ctx.fillText("☓", POS_X, POS_Y + this.size);
+					continue;
+				}
+
 				const COLOR = Puyo.color[TYPE];
 				ctx.fillStyle = COLOR;
 
-				const POS_X = this.startPosX + x * this.size;
-				const POS_Y = this.startPosY + y * this.size;
 				ctx.beginPath();
 				ctx.rect(POS_X, POS_Y, this.size, this.size);
 				ctx.closePath();
